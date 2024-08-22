@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 /// 自适应头部组件
 class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -48,7 +47,7 @@ class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
                 icon: const Icon(Icons.language),
                 onPressed: () {
                   // 处理多语言切换的路由跳转
-                  context.go('/language');
+                  // context.go('/language');
                 },
               ),
               IconButton(
@@ -61,7 +60,7 @@ class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
                 icon: const Icon(Icons.search),
                 onPressed: () {
                   // 处理搜索的路由跳转
-                  context.go('/search');
+                  // context.go('/search');
                 },
               ),
             ],

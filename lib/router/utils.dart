@@ -5,15 +5,10 @@ class RouterService {
   /// 带历史记录的跳转
   static void go(
     BuildContext context,
-    String routeName, {
+    String routeName,
     Object? arguments,
-    Function? onSuccess,
-  }) {
-    Navigator.pushNamed(context, routeName, arguments: arguments).then((value) {
-      if (onSuccess != null) {
-        onSuccess(value);
-      }
-    });
+  ) {
+    Navigator.pushNamed(context, routeName, arguments: arguments);
   }
 
   /// 返回上一层
@@ -25,16 +20,9 @@ class RouterService {
   static void replace(
     BuildContext context,
     String routeName, {
-    Object? arguments,
-    Function? onSuccess,
+    Object? arguments
   }) {
-    Navigator.pushReplacementNamed(context, routeName, arguments: arguments)
-        .then((value) {
-      if (onSuccess != null) {
-        onSuccess(value);
-      }
-    });
-    ;
+    Navigator.pushReplacementNamed(context, routeName, arguments: arguments);
   }
 
   /// 获取路由参数
