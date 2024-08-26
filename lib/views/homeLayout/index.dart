@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/index.dart';
-import '../../models/change_notifier.dart';
+import '../../modules/change_notifier.dart';
 import '../profile/index.dart';
 import '../home/index.dart';
 import '../tools/index.dart';
@@ -13,21 +14,6 @@ final List<Widget> _pages = [
   const ProfileScreen()
 ];
 
-final List<BottomNavigationBarItem> listItem = [
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.home),
-    label: '首页',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.adf_scanner_rounded),
-    label: '工具箱',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(Icons.settings),
-    label: '我的',
-  ),
-];
-
 /// 主布局组件
 class MainLayout extends StatelessWidget {
   const MainLayout({super.key});
@@ -35,6 +21,20 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int bottomNavBarIndex = context.watch<Counter>().bottomNavBarIndex;
+    final List<Map<String, dynamic>> listItem = [
+      {
+        "icon": const Icon(Icons.home),
+        "label": context.tr('home'),
+      },
+      {
+        "icon": const Icon(Icons.adf_scanner_rounded),
+        "label": context.tr('tools')
+      },
+      {
+        "icon": const Icon(Icons.settings),
+        "label": context.tr('profile'),
+      },
+    ];
     return SafeArea(
       child: Scaffold(
         body: LayoutBuilder(

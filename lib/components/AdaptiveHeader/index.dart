@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/locale.dart';
+
 /// 自适应头部组件
 class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
   final String avatarUrl;
@@ -61,51 +63,47 @@ class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(avatarUrl),
-              ),
-              const SizedBox(width: 8.0),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(avatarUrl),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(name, style: TextStyle(fontSize: 12)),
                       Text(signature, style: TextStyle(fontSize: 8)),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.language),
+                    onPressed: () => LocaleUtils.setLocale(context),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.brightness_4),
+                    onPressed: () {
+                      // 处理主题切换的逻辑
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      // 处理搜索的路由跳转
+                      // context.go('/search');
+                    },
+                  ),
                 ],
               ),
             ],
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.language),
-                onPressed: () {
-                  // 处理多语言切换的路由跳转
-                  // context.go('/language');
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.brightness_4),
-                onPressed: () {
-                  // 处理主题切换的逻辑
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  // 处理搜索的路由跳转
-                  // context.go('/search');
-                },
-              ),
-            ],
-          ),
-        ],
-          ),
-        )
-    );
+        ));
   }
 }

@@ -20,9 +20,11 @@ class AppTheme {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.white,
       selectedItemColor: Colors.blue[400],
-      unselectedItemColor: Colors.black,
+      unselectedItemColor: Colors.grey,
+      selectedLabelStyle:
+          TextStyle(color: Colors.blue[400], fontWeight: FontWeight.w600),
     ),
   );
 
@@ -44,6 +46,8 @@ class AppTheme {
       backgroundColor: Colors.black,
       selectedItemColor: Colors.blue[400],
       unselectedItemColor: Colors.white,
+      selectedLabelStyle:
+          TextStyle(color: Colors.blue[400], fontWeight: FontWeight.w600),
     ),
   );
 }

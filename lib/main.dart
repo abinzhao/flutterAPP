@@ -1,17 +1,26 @@
-import 'package:code_app/themes/theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'models/change_notifier.dart';
+import 'modules/change_notifier.dart';
 import './router/index.dart';
+import 'themes/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Counter()),
       ],
-      child: const MainApp(),
+      child: EasyLocalization(
+        supportedLocales: const [Locale('zh', 'CN'), Locale('en', 'US')],
+        fallbackLocale: const Locale('zh', 'CN'),
+        path: 'translations',
+        child: const MainApp(),
+    ),
     ),
   );
 }
@@ -22,6 +31,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: router,
