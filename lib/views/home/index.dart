@@ -10,11 +10,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-      ),
-      child: Text('Hello World,HomeScreen'),
+    return Column(
+      children: [
+        // 这里可以放置大量的内容组件，比如文本、图片等
+        for (int i = 0; i < 60; i++) Text('Item $i'),
+      ],
     );
   }
 }

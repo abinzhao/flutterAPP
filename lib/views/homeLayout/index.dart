@@ -37,7 +37,17 @@ class MainLayout extends StatelessWidget {
     final int bottomNavBarIndex = context.watch<Counter>().bottomNavBarIndex;
     return SafeArea(
       child: Scaffold(
-        body: _pages[bottomNavBarIndex],
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+              child: SingleChildScrollView(child: _pages[bottomNavBarIndex]),
+            );
+          },
+        ),
+        
         appBar: const AdaptiveHeader(),
         bottomNavigationBar: BottomNavBar(
           selectedIndex: bottomNavBarIndex,
