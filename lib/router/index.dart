@@ -7,14 +7,6 @@ import '../views/home/index.dart';
 import '../views/profile/index.dart';
 import 'page_path.dart';
 
-/// 路由名称
-const Map<String, String> pathName = {
-  '/': '/',
-  'home': 'home',
-  'profile': 'profile',
-  'login': 'login',
-};
-
 /// 路由配置
 final GoRouter router = GoRouter(
   routes: <RouteBase>[

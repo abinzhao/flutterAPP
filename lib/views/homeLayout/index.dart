@@ -10,7 +10,22 @@ import '../tools/index.dart';
 final List<Widget> _pages = [
   const HomeScreen(),
   const ToolsScreen(),
-  const ProfileScreen(),
+  const ProfileScreen()
+];
+
+final List<BottomNavigationBarItem> listItem = [
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.home),
+    label: '首页',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.adf_scanner_rounded),
+    label: '工具箱',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.settings),
+    label: '我的',
+  ),
 ];
 
 /// 主布局组件
@@ -20,10 +35,15 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int bottomNavBarIndex = context.watch<Counter>().bottomNavBarIndex;
-    return Scaffold(
-      body: SafeArea(child: _pages[bottomNavBarIndex]),
-      appBar: const AdaptiveHeader(),
-      bottomNavigationBar: BottomNavBar(selectedIndex: bottomNavBarIndex),
+    return SafeArea(
+      child: Scaffold(
+        body: _pages[bottomNavBarIndex],
+        appBar: const AdaptiveHeader(),
+        bottomNavigationBar: BottomNavBar(
+          selectedIndex: bottomNavBarIndex,
+          listItem: listItem,
+        ),
+      ),
     );
   }
 }
