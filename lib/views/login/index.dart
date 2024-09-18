@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../components/index.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,8 +12,31 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text('Hello World,LoginScreen'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: const AdaptiveHeader(
+          isBackHeader: true,
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              const Text(
+                'the is Login page',
+                style: TextStyle(fontSize: 14),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context.go('/');
+                },
+                child: const Text(
+                  '回到首页',
+                  style: TextStyle(fontSize: 14),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

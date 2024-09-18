@@ -7,6 +7,7 @@ import '../../modules/change_notifier.dart';
 import '../profile/index.dart';
 import '../home/index.dart';
 import '../tools/index.dart';
+import '../../utils//device.dart';
 
 final List<Widget> _pages = [
   const HomeScreen(),
@@ -21,6 +22,7 @@ class MainLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int bottomNavBarIndex = context.watch<Counter>().bottomNavBarIndex;
+    final bool isLargeScreen = DeviceUtils.isLargeScreen(context);
     final List<Map<String, dynamic>> listItem = [
       {
         "icon": const Icon(Icons.home),
@@ -49,7 +51,9 @@ class MainLayout extends StatelessWidget {
         ),
         
         appBar: const AdaptiveHeader(),
-        bottomNavigationBar: BottomNavBar(
+        bottomNavigationBar: isLargeScreen
+            ? const LargeScreenFooter()
+            : BottomNavBar(
           selectedIndex: bottomNavBarIndex,
           listItem: listItem,
         ),

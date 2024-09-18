@@ -24,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   final GlobalKey _bottomNavigationKey = GlobalKey();
 
   /// 底部导航栏高度
-  final navBarHeight = 56.0;
+  Size get preferredSize => const Size.fromHeight(56.0);
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar>
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
       child: Container(
-        height: 56,
+        height: preferredSize.height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
