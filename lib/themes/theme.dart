@@ -26,6 +26,11 @@ class AppTheme {
       selectedLabelStyle:
           TextStyle(color: Colors.blue[400], fontWeight: FontWeight.w600),
     ),
+      iconButtonTheme: IconButtonThemeData(
+        style: ButtonStyle(
+          iconColor: WidgetStateProperty.all(Colors.white70),
+        ),
+      )
   );
 
   static final darkTheme = ThemeData(
@@ -45,9 +50,14 @@ class AppTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.black,
       selectedItemColor: Colors.blue[400],
-      unselectedItemColor: Colors.white,
+        unselectedItemColor: Colors.black,
       selectedLabelStyle:
           TextStyle(color: Colors.blue[400], fontWeight: FontWeight.w600),
     ),
+      iconButtonTheme: IconButtonThemeData(
+        style: ButtonStyle(
+          iconColor: WidgetStateProperty.all(Colors.white),
+        ),
+      )
   );
 }

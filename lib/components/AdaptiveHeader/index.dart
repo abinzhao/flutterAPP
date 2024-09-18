@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../utils/locale.dart';
+import '../../themes/utils.dart';
 
 /// 自适应头部组件
 class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -90,15 +91,15 @@ class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     iconSize: 20.0,
                     icon: const Icon(Icons.language),
+                    /// 设置语言
                     onPressed: () => LocaleUtils.setLocale(context),
                   ),
                   IconButton(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     iconSize: 20.0,
                     icon: const Icon(Icons.brightness_4),
-                    onPressed: () {
-                      // 处理主题切换的逻辑
-                    },
+                    /// 切换主题
+                    onPressed: () => ThemeUtils.toggleTheme(context),
                   ),
                   IconButton(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
