@@ -53,9 +53,11 @@ class _BottomNavBarState extends State<BottomNavBar>
         height: 56,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          color: Colors.white,
+          color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         ),
-        child: BottomNavigationBar(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: BottomNavigationBar(
           key: _bottomNavigationKey,
           backgroundColor: Colors.transparent,
           currentIndex: widget.selectedIndex,
@@ -90,6 +92,7 @@ class _BottomNavBarState extends State<BottomNavBar>
           showUnselectedLabels: false,
           elevation: 0,
           iconSize: 24,
+          ),
         ),
       ),
     );

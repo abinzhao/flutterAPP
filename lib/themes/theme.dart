@@ -17,7 +17,9 @@ class AppTheme {
     ),
     cardTheme: CardTheme(
       elevation: 2.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
@@ -30,7 +32,7 @@ class AppTheme {
         style: ButtonStyle(
           iconColor: WidgetStateProperty.all(Colors.white70),
         ),
-      )
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -45,19 +47,21 @@ class AppTheme {
     ),
     cardTheme: CardTheme(
       elevation: 4.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.black,
-      selectedItemColor: Colors.blue[400],
-        unselectedItemColor: Colors.black,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.white70,
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.black,
       selectedLabelStyle:
-          TextStyle(color: Colors.blue[400], fontWeight: FontWeight.w600),
+          TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
     ),
       iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
           iconColor: WidgetStateProperty.all(Colors.white),
         ),
-      )
+    ),
   );
 }
