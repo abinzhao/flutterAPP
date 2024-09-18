@@ -64,6 +64,7 @@ class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
@@ -75,25 +76,33 @@ class AdaptiveHeader extends StatelessWidget implements PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(name, style: TextStyle(fontSize: 12)),
-                      Text(signature, style: TextStyle(fontSize: 8)),
+                      Text(name, style: const TextStyle(fontSize: 12)),
+                      Text(signature, style: const TextStyle(fontSize: 8)),
                     ],
                   ),
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    iconSize: 20.0,
                     icon: const Icon(Icons.language),
                     onPressed: () => LocaleUtils.setLocale(context),
                   ),
                   IconButton(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    iconSize: 20.0,
                     icon: const Icon(Icons.brightness_4),
                     onPressed: () {
                       // 处理主题切换的逻辑
                     },
                   ),
                   IconButton(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    iconSize: 20.0,
                     icon: const Icon(Icons.search),
                     onPressed: () {
                       // 处理搜索的路由跳转

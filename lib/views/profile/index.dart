@@ -11,7 +11,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Hello World,ProfileScreen'),
+      child: const Text('Hello World,ProfileScreen'),
     );
   }
 }
