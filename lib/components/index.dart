@@ -3,3 +3,5 @@ export 'BottomNavBar/index.dart';
 export 'LargeScreenFooter/index.dart';
 export 'Error/index.dart';
 export 'ImmersiveHeader/index.dart';
+export 'CustomButton/index.dart';
+export 'VerificationCodeInput/index.dart';
