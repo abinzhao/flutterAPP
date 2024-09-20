@@ -27,6 +27,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 '跳转到登录',
                 style: TextStyle(fontSize: 14),
               ),
+            ),
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/loginddddd');
+              },
+              child: const Text(
+                '跳转到未知页面',
+                style: TextStyle(fontSize: 14),
+              ),
             )
           ],
         ),

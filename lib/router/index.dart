@@ -1,3 +1,4 @@
+import 'package:code_app/views/error/index.dart';
 import 'package:code_app/views/login/index.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,8 +35,17 @@ final GoRouter router = GoRouter(
             return const LoginScreen();
           },
         ),
+
+        /// 错误页面
+        GoRoute(
+          path: '*',
+          builder: (BuildContext context, GoRouterState state) {
+            return const ErrorScreen();
+          },
+        ),
       ],
     ),
   ],
+  errorBuilder: (context, state) => const ErrorScreen(),
 );
 
