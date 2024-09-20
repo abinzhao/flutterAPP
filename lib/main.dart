@@ -1,6 +1,4 @@
 // ignore_for_file: unrelated_type_equality_checks
-
-import 'package:code_app/themes/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

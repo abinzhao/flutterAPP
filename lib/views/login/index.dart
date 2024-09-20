@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return ImmersiveHeader(
       child: Scaffold(
         appBar: const AdaptiveHeader(
           isBackHeader: true,

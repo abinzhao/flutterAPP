@@ -37,7 +37,7 @@ class MainLayout extends StatelessWidget {
         "label": context.tr('profile'),
       },
     ];
-    return SafeArea(
+    return ImmersiveHeader(
       child: Scaffold(
         body: LayoutBuilder(
           builder: (context, constraints) {
@@ -49,14 +49,13 @@ class MainLayout extends StatelessWidget {
             );
           },
         ),
-        
         appBar: const AdaptiveHeader(),
         bottomNavigationBar: isLargeScreen
             ? const LargeScreenFooter()
             : BottomNavBar(
-          selectedIndex: bottomNavBarIndex,
-          listItem: listItem,
-        ),
+                selectedIndex: bottomNavBarIndex,
+                listItem: listItem,
+              ),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../../components/index.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -8,7 +7,7 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return ImmersiveHeader(
       child: Scaffold(
         appBar: const AdaptiveHeader(
           isBackHeader: true,
