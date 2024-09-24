@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 '跳转到未知页面',
                 style: TextStyle(fontSize: 14),
               ),
-            )
+            ),
           ],
         ),
       ),

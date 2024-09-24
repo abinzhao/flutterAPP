@@ -1,7 +1,7 @@
-import 'dart:ui';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../components/index.dart';
 import 'input_field.dart';
 import 'password_field.dart';
@@ -13,24 +13,31 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
-
-final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _verificationCodeController =
       TextEditingController();
   bool _isLogin = true;
-  bool _rememberMe = false;
+  bool _agreedToPrivacyPolicy = false;
   bool _obscurePassword = true;
 
   void _toggleForm() {
     setState(() {
       _isLogin = !_isLogin;
+      // 如果切换到注册状态，先设置高度再构建界面
+      if (!_isLogin) {
+        _height = 580;
+      } else {
+        // 切换回登录状态，直接设置高度
+        _height = 500;
+      }
     });
   }
+
+  double _height = 500;
 
   void _submit() {
     if (_isLogin) {
@@ -51,139 +58,146 @@ final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return ImmersiveHeader(
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.blue[400] as Color,
-                Colors.blue[600] as Color,
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('./images/login-bg.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            padding: const EdgeInsets.all(16),
+            width: 350,
+            height: _height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white.withOpacity(0.3),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 8,
+                  offset: const Offset(0, 5),
+                ),
               ],
             ),
-          ),
-          child: Center(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.transparent,
-                ),
-                child: Card(
-                  color: Colors.white.withOpacity(0.7),
-                  elevation: 8,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Container(
-                    color: Colors.transparent,
-                    padding: const EdgeInsets.all(20),
-                    width: 320,
-                    height: 500,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          _isLogin ? 'Login' : 'Register',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue[800],
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        InputField(
-                          controller: _emailController,
-                          labelText: 'Email',
-                        ),
-                        const SizedBox(height: 10),
-                        if (_isLogin)
-                          PasswordInputField(
-                            controller: _passwordController,
-                            obscureText: _obscurePassword,
-                            onToggle: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                        if (!_isLogin)
-                          PasswordInputField(
-                            controller: _passwordController,
-                            obscureText: _obscurePassword,
-                            onToggle: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                        if (!_isLogin) const SizedBox(height: 10),
-                        if (!_isLogin)
-                          PasswordInputField(
-                            controller: _confirmPasswordController,
-                            obscureText: _obscurePassword,
-                            onToggle: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _rememberMe,
-                              onChanged: (value) {
-                                setState(() {
-                                  _rememberMe = value!;
-                                });
-                              },
-                              activeColor: Colors.blue[800],
-                            ),
-                            Text(
-                              'Remember me',
-                              style: TextStyle(color: Colors.grey[600]),
-                            ),
-                          ],
-                        ),
-                        CustomButton(
-                          onPressed: _submit,
-                          width: 200,
-                          height: 42,
-                          borderRadius: 16,
-                          text: _isLogin ? 'Login' : 'Register',
-                        ),
-                        const SizedBox(height: 10),
-                        CustomButton(
-                          onPressed: _toggleForm,
-                          width: 150,
-                          borderRadius: 16,
-                          backgroundColor: Colors.transparent,
-                          text:
-                              _isLogin ? 'Register instead?' : 'Login instead?',
-                          type: ButtonType.text,
-                          textStyle:
-                              TextStyle(fontSize: 12, color: Colors.blue[800]),
-                        ),
-
-                        VerificationCodeInput(
-                          codeLength: 2,
-                          width: 200,
-                          padding: const EdgeInsets.all(10),
-                          backgroundColor: Colors.lightBlue.withOpacity(0.2),
-                          borderColor: Colors.blue,
-                          textColor: Colors.blue,
-                          onChange: () {
-                            // 验证码改变时的处理逻辑
-                          },
-                        )
-                      ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _isLogin ? context.tr('login') : context.tr('register'),
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue[800],
                     ),
                   ),
-                ),
+                  const SizedBox(height: 25),
+                  if (!_isLogin)
+                    Text(
+                      context.tr('registerDesc'),
+                      style: TextStyle(color: Colors.grey[600]),
+                      textAlign: TextAlign.center,
+                    ),
+                  const SizedBox(height: 20),
+                  // 通用输入框样式
+                  InputField(
+                    controller: _emailController,
+                    labelText: context.tr('email'),
+                  ),
+                  const SizedBox(height: 15),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    height: _isLogin ? 50 : 60,
+                    child: PasswordInputField(
+                      controller: _passwordController,
+                      obscureText: _obscurePassword,
+                      labelText: context.tr('password'),
+                      onToggle: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+                  ),
+                  if (!_isLogin) const SizedBox(height: 15),
+                  if (!_isLogin)
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      height: 60,
+                      child: PasswordInputField(
+                        controller: _confirmPasswordController,
+                        obscureText: _obscurePassword,
+                        labelText: context.tr('confirmPassword'),
+                        onToggle: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                    ),
+                  const SizedBox(height: 15),
+                  // 验证码输入框独特样式
+                  InputField(
+                    controller: _verificationCodeController,
+                    labelText: context.tr("verificationCode"),
+                    isVerificationCodeField: true,
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Checkbox(
+                        value: _agreedToPrivacyPolicy,
+                        onChanged: (value) {
+                          setState(() {
+                            _agreedToPrivacyPolicy = value!;
+                          });
+                        },
+                        checkColor: Colors.white,
+                        activeColor: Theme.of(context).primaryColor,
+                      ),
+                      Text(
+                        context.tr("agreePolicy"),
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  CustomButton(
+                    onPressed: _submit,
+                    width: 200,
+                    height: 45,
+                    borderRadius: 12,
+                    text:
+                        _isLogin ? context.tr("login") : context.tr("register"),
+                    textStyle:
+                        const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  const SizedBox(height: 15),
+                  CustomButton(
+                    onPressed: _toggleForm,
+                    width: 150,
+                    isDisabled: _agreedToPrivacyPolicy,
+                    borderRadius: 12,
+                    backgroundColor: Colors.transparent,
+                    text: _isLogin
+                        ? context.tr("goToLogin")
+                        : context.tr("goToRegistration"),
+                    type: ButtonType.text,
+                    textStyle: TextStyle(
+                        fontSize: 14, color: Theme.of(context).primaryColor),
+                  ),
+                ],
               ),
             ),
           ),

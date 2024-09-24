@@ -14,7 +14,7 @@ class ErrorScreen extends StatelessWidget {
         ),
         body: Error(
           errorMessage: context.tr('404Text'),
-          imageProvider: const AssetImage('./images/404.png'),
+          imageProvider: const AssetImage('./icons/404.png'),
         ),
       ),
     );

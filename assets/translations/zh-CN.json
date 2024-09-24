@@ -4,5 +4,16 @@
     "profile": "个人中心",
     "404Text": "您访问的页面丢了，请稍后重试!",
     "footerText1": "软件由 @纯爱掌门人 制作出品",
-    "footerText2": "版权所有 © 2024。[软件名称为‘开发盒子’]。备案号：[备案号暂为‘XXXXX-XXXXX’]。"
+    "footerText2": "版权所有 © 2024。[软件名称为‘开发盒子’]。备案号：[备案号暂为‘XXXXX-XXXXX’]。",
+    "login": "登录",
+    "register": "注册",
+    "registerDesc": "创建一个新帐户来开始您的旅程。",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "verificationCode": "验证码",
+    "goToLogin": "已注册，前往登录?",
+    "goToRegistration": "无账号，前往注册?",
+    "agreePolicy": "同意《用户协议》和《隐私政策》",
+    "sendCode": "发送验证码"
 }

@@ -4,12 +4,14 @@ class PasswordInputField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
   final VoidCallback onToggle;
+  final String? labelText;
 
   const PasswordInputField({
     super.key,
     required this.controller,
     required this.obscureText,
     required this.onToggle,
+    this.labelText,
   });
 
   @override
@@ -18,7 +20,7 @@ class PasswordInputField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
-        labelText: 'Password',
+        labelText: labelText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -27,6 +29,7 @@ class PasswordInputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         labelStyle: TextStyle(color: Colors.grey[600]),
+        hintStyle: TextStyle(color: Colors.grey[500]),
         suffixIcon: IconButton(
           icon: Icon(
             obscureText ? Icons.visibility_off : Icons.visibility,
