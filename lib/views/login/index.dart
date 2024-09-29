@@ -66,26 +66,11 @@ class _LoginScreenState extends State<LoginScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            padding: const EdgeInsets.all(16),
-            width: 350,
-            height: _height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white.withOpacity(0.3),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 3,
-                  blurRadius: 8,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const BackHeader(),
+            Center(
+              child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -197,10 +182,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     textStyle: TextStyle(
                         fontSize: 14, color: Theme.of(context).primaryColor),
                   ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -49,7 +49,6 @@ class MainLayout extends StatelessWidget {
             );
           },
         ),
-        appBar: const AdaptiveHeader(),
         bottomNavigationBar: isLargeScreen
             ? const LargeScreenFooter()
             : BottomNavBar(

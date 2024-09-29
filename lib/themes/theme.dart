@@ -46,7 +46,7 @@ class AppTheme {
           }
           return null;
         }),
-        iconColor: WidgetStateProperty.all(Colors.white),
+        iconColor: WidgetStateProperty.all(Colors.black54),
       ),
     ),
   );
