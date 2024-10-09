@@ -49,6 +49,17 @@ class AppTheme {
         iconColor: WidgetStateProperty.all(Colors.black54),
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(Colors.black54),
+        overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+          if (states.contains(WidgetState.pressed)) {
+            return const Color.fromARGB(255, 0, 128, 255).withOpacity(0.2);
+          }
+          return null;
+        }),
+      ),
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -96,6 +107,17 @@ class AppTheme {
           return null;
         }),
         iconColor: WidgetStateProperty.all(Colors.white),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+          if (states.contains(WidgetState.pressed)) {
+            return const Color.fromARGB(255, 128, 0, 255).withOpacity(0.2);
+          }
+          return null;
+        }),
       ),
     ),
   );

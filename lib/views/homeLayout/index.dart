@@ -39,6 +39,7 @@ class MainLayout extends StatelessWidget {
     ];
     return ImmersiveHeader(
       child: Scaffold(
+        extendBody: true,
         body: LayoutBuilder(
           builder: (context, constraints) {
             return Container(

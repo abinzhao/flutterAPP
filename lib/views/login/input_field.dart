@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
   final TextEditingController controller;
-  final String labelText;
+  final String? labelText;
   final bool? isVerificationCodeField;
 
   const InputField({
     super.key,
     required this.controller,
-    required this.labelText,
+    this.labelText,
     this.isVerificationCodeField,
   });
 

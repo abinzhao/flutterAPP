@@ -28,36 +28,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: Colors.blue,
-          child: TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            indicatorColor: Colors.white,
-            labelColor: Colors.white,
-            // unlabeledTabIndicatorColor: Colors.transparent,
-            tabs: const [
-              Tab(text: 'Tab 1'),
-              Tab(text: 'Tab 2'),
-              Tab(text: 'Tab 3'),
-            ],
-          ),
-        ),
-        Container(
-          height: DeviceUtils.getScreenSize(context).height,
-          width: DeviceUtils.getScreenSize(context).width,
-          child: TabBarView(
-            controller: _tabController,
-            children: const [
-              Center(child: Text('Content of Tab 1')),
-              Center(child: Text('Content of Tab 2')),
-              Center(child: Text('Content of Tab 3')),
-            ],
-          ),
-        ),
-      ],
+    return Container(
+      child: Text('data'),
     );
   }
 }
