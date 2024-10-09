@@ -43,6 +43,7 @@ class _InputFieldState extends State<InputField> {
           ],
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
@@ -59,8 +60,20 @@ class _InputFieldState extends State<InputField> {
                       fontSize: 18,
                       color: Colors.black.withOpacity(0.2),
                     ),
-                    suffixIcon: widget.rightWidget,
-                    prefixIcon: widget.leftWidget,
+                    suffixIcon: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 10,
+                        top: 10,
+                      ),
+                      child: widget.rightWidget,
+                    ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 10,
+                        top: 10,
+                      ),
+                      child: widget.leftWidget,
+                    ),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 8,
                       vertical: 12,

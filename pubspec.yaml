@@ -15,6 +15,7 @@ dependencies:
   easy_localization: ^3.0.7
   dio: ^5.7.0
   toastification: ^2.3.0
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:

@@ -1,9 +1,11 @@
 import 'package:code_app/utils/device.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../components/index.dart';
+import 'constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -56,7 +58,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: DeviceUtils.getScreenSize(context).height * 0.04,
                   ),
                   InputField(
-                    leftWidget: const Icon(Icons.phone),
+                    leftWidget: FaIcon(
+                      FontAwesomeIcons.phone,
+                      size: 20,
+                      color: Theme.of(context).primaryColor,
+                    ),
                     hintText: '请输入手机号码',
                     textEditingController: _iponeController,
                   ),
@@ -66,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: '请输入手机号码',
                     textEditingController: _iponeController,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 32),
                   Button(
                     icon: const Icon(Icons.arrow_forward, color: Colors.white),
                     onPressed: _submit,
@@ -74,28 +80,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 60,
                     height: 60,
                   ),
-                  const SizedBox(height: 24),
-                  Button(
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: _submit,
-                    buttonText: '按钮',
-                    type: ButtonType.border,
-                  ),
-                  const SizedBox(height: 24),
-                  Button(
-                    icon: const Icon(Icons.arrow_forward, color: Colors.white),
-                    onPressed: _submit,
-                    buttonText: '按钮',
-                    iconPosition: IconPosition.left,
-                    type: ButtonType.primary,
-                  ),
-                  const SizedBox(height: 24),
-                  Button(
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: _submit,
-                    buttonText: '按钮',
-                    type: ButtonType.text,
-                  ),
+                  const SizedBox(height: 32),
+                  Container(
+                    width: DeviceUtils.getScreenSize(context).width,
+                    height: 28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: loginIconAndText.map((item) {
+                        return Button(
+                          icon: FaIcon(
+                            item['icon'],
+                            size: 24,
+                            color: Colors.blue,
+                          ),
+                          onPressed: _submit,
+                          type: ButtonType.circular,
+                          width: 30,
+                          height: 30,
+                          backgroundColor: Colors.transparent,
+                        );
+                      }).toList(),
+                    ),
+                  )
+                  
                 ],
               ),
             ),
