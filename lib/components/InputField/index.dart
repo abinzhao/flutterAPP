@@ -26,35 +26,51 @@ class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double inputWidth = screenWidth * 0.8; // 占屏幕宽度的 80%，可根据需求调整比例
+    double inputWidth = screenWidth * 0.8;
 
-    return Container(
+    return SizedBox(
       width: inputWidth,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: widget.borderRadius ?? BorderRadius.circular(24),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: TextField(
-              controller: widget.textEditingController,
-              onChanged: widget.onChanged,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: widget.hintText,
-                hintStyle: const TextStyle(fontSize: 18),
-                suffixIcon: widget.rightWidget,
-                prefixIcon: widget.leftWidget,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 12,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white60,
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 12,
+              offset: const Offset(5, 5),
+            )
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: widget.borderRadius ?? BorderRadius.circular(24),
+                child: TextField(
+                  controller: widget.textEditingController,
+                  onChanged: widget.onChanged,
+                  decoration: InputDecoration(
+                    filled: true,
+                    border: InputBorder.none,
+                    hintText: widget.hintText,
+                    hintStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black.withOpacity(0.2),
+                    ),
+                    suffixIcon: widget.rightWidget,
+                    prefixIcon: widget.leftWidget,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 12,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
