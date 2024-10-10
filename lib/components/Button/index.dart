@@ -29,6 +29,9 @@ class Button extends StatefulWidget {
   final VoidCallback? onPressed;
   final ButtonType type;
   final bool? disabled;
+  final bool? isBoxShadow;
+  final bool? isBorder;
+  final BoxBorder? border;
 
   const Button({
     super.key,
@@ -46,6 +49,9 @@ class Button extends StatefulWidget {
     this.onPressed,
     this.type = ButtonType.primary,
     this.disabled = false,
+    this.isBoxShadow = false,
+    this.isBorder = false,
+    this.border,
   });
 
   @override
@@ -106,14 +112,14 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
     final Widget buttonContent;
     if (widget.buttonText == null) {
-      buttonContent = _currentIcon;
+      buttonContent = widget.icon!;
     } else {
       if (widget.iconPosition == IconPosition.left) {
         if (widget.type == ButtonType.circular) {
           double iconWidth = (widget.width ?? 48) * 0.5;
           _currentIcon = SizedBox(
             width: iconWidth,
-            child: _currentIcon,
+            child: widget.icon,
           );
         }
         buttonContent = Row(
@@ -121,7 +127,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _currentIcon,
+            widget.icon!,
             const SizedBox(width: 8),
             Text(
               widget.buttonText!,
@@ -134,7 +140,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
           double iconWidth = (widget.width ?? 48) * 0.5;
           _currentIcon = SizedBox(
             width: iconWidth,
-            child: _currentIcon,
+            child: widget.icon,
           );
         }
         buttonContent = Row(
@@ -147,7 +153,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
               style: widget.textStyle,
             ),
             const SizedBox(width: 8),
-            _currentIcon,
+            widget.icon!,
           ],
         );
       }
@@ -158,67 +164,58 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     double? height =
         widget.height ?? (widget.type == ButtonType.circular ? width : 48);
     final bool isDisabled = widget.disabled! || widget.isLoading;
+    final Color disabledColor = isDisabled ? Colors.grey : mainColor;
+    final List<BoxShadow>? boxShadow = widget.isBoxShadow!
+        ? [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 15,
+              offset: const Offset(2, 2),
+            ),
+          ]
+        : null;
+    final BoxBorder? border = widget.isBorder!
+        ? widget.border != null
+            ? widget.border!
+            : Border.all(
+                color: disabledColor,
+                width: 2,
+              )
+        : null;
 
     BoxDecoration decoration;
     switch (widget.type) {
       case ButtonType.circular:
         decoration = BoxDecoration(
-          color: isDisabled ? Colors.grey : mainColor,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 15,
-              offset: const Offset(2, 2),
-            )
-          ],
+          color: disabledColor,
+          shape: widget.borderRadius != null
+              ? BoxShape.rectangle
+              : BoxShape.circle,
+          borderRadius: widget.borderRadius != null
+              ? BorderRadius.circular(widget.borderRadius!)
+              : null,
+          border: border,
+          boxShadow: boxShadow,
         );
         break;
       case ButtonType.primary:
         decoration = BoxDecoration(
-          color: isDisabled ? Colors.grey : mainColor,
+          color: disabledColor,
+          border: border,
           borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 15,
-              offset: const Offset(2, 2),
-            )
-          ],
+          boxShadow: boxShadow,
         );
         break;
       case ButtonType.border:
         decoration = BoxDecoration(
-          border: Border.all(
-            color: mainColor,
-            width: 2,
-          ),
+          border: border,
           borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
+          boxShadow: boxShadow,
         );
         break;
       case ButtonType.text:
         decoration = const BoxDecoration();
         break;
-    }
-
-    Color iconColor;
-    switch (widget.type) {
-      case ButtonType.border:
-      case ButtonType.text:
-        iconColor = mainColor;
-        break;
-      default:
-        iconColor = Colors.white;
-    }
-
-    if (widget.icon != null) {
-      _currentIcon = ColorFiltered(
-        colorFilter: ColorFilter.mode(
-          iconColor,
-          BlendMode.srcIn,
-        ),
-        child: _currentIcon,
-      );
     }
 
     return InkWell(

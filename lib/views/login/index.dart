@@ -21,6 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
     print('object');
   }
 
+  void _onButtonGroupChange(String? key) {
+    // 打印选中的键值
+    print("对象: $key");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,32 +82,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     icon: const Icon(Icons.arrow_forward, color: Colors.white),
                     onPressed: _submit,
                     type: ButtonType.circular,
+                    isBoxShadow: true,
                     width: 60,
-                    height: 60,
                   ),
                   const SizedBox(height: 32),
-                  Container(
-                    width: DeviceUtils.getScreenSize(context).width,
-                    height: 28,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: loginIconAndText.map((item) {
-                        return Button(
-                          icon: FaIcon(
-                            item['icon'],
-                            size: 24,
-                            color: Colors.blue,
-                          ),
-                          onPressed: _submit,
-                          type: ButtonType.circular,
-                          width: 30,
-                          height: 30,
-                          backgroundColor: Colors.transparent,
-                        );
-                      }).toList(),
-                    ),
-                  )
-                  
+                  ButtonGroup(
+                    loginOptions: loginIconAndText,
+                    onChange: (key) => _onButtonGroupChange(key),
+                  ),
                 ],
               ),
             ),
