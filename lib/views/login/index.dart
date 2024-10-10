@@ -16,14 +16,16 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _iponeController = TextEditingController();
+  late Map<String, dynamic> _selectedData = loginIconAndText[0];
 
   void _submit() {
     print('object');
   }
 
-  void _onButtonGroupChange(String? key) {
-    // 打印选中的键值
-    print("对象: $key");
+  void _onButtonGroupChange(Map<String, dynamic> item, int? index) {
+    setState(() {
+      _selectedData = loginIconAndText[index ?? 0];
+    });
   }
 
   @override
@@ -44,7 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {},
                 child: const Text(
                   '账号登录',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -52,9 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  const Text(
-                    "手机号登录",
-                    style: TextStyle(
+                  Text(
+                    _selectedData['text'] ?? '',
+                    style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
@@ -68,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       size: 20,
                       color: Theme.of(context).primaryColor,
                     ),
-                    hintText: '请输入手机号码',
+                    hintText: _selectedData['hintText'] ?? '',
                     textEditingController: _iponeController,
                   ),
                   const SizedBox(height: 24),
@@ -88,7 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 32),
                   ButtonGroup(
                     loginOptions: loginIconAndText,
-                    onChange: (key) => _onButtonGroupChange(key),
+                    onChange: (item, index) =>
+                        _onButtonGroupChange(item, index),
                   ),
                 ],
               ),

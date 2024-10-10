@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 按钮类型枚举
 enum ButtonType {
@@ -66,9 +67,6 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _currentIcon = (widget.isLoading && widget.loadingIcon != null
-        ? widget.loadingIcon
-        : widget.icon ?? const SizedBox.shrink())!;
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
@@ -111,15 +109,18 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     }
 
     final Widget buttonContent;
+    final Widget iconWidget = (widget.isLoading
+        ? widget.loadingIcon ?? const CircularProgressIndicator()
+        : widget.icon ?? const SizedBox.shrink());
     if (widget.buttonText == null) {
-      buttonContent = widget.icon!;
+      buttonContent = iconWidget;
     } else {
       if (widget.iconPosition == IconPosition.left) {
         if (widget.type == ButtonType.circular) {
           double iconWidth = (widget.width ?? 48) * 0.5;
           _currentIcon = SizedBox(
             width: iconWidth,
-            child: widget.icon,
+            child: iconWidget,
           );
         }
         buttonContent = Row(
@@ -127,7 +128,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            widget.icon!,
+            iconWidget,
             const SizedBox(width: 8),
             Text(
               widget.buttonText!,
@@ -140,7 +141,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
           double iconWidth = (widget.width ?? 48) * 0.5;
           _currentIcon = SizedBox(
             width: iconWidth,
-            child: widget.icon,
+            child: iconWidget,
           );
         }
         buttonContent = Row(
@@ -153,7 +154,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
               style: widget.textStyle,
             ),
             const SizedBox(width: 8),
-            widget.icon!,
+            iconWidget,
           ],
         );
       }
@@ -163,7 +164,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
         widget.width ?? (widget.type == ButtonType.circular ? 48 : null);
     double? height =
         widget.height ?? (widget.type == ButtonType.circular ? width : 48);
-    final bool isDisabled = widget.disabled! || widget.isLoading;
+    final bool isDisabled = widget.disabled!;
     final Color disabledColor = isDisabled ? Colors.grey : mainColor;
     final List<BoxShadow>? boxShadow = widget.isBoxShadow!
         ? [

@@ -5,24 +5,24 @@ const List<Map<String, dynamic>> loginIconAndText = [
     'icon': FontAwesomeIcons.phone,
     'text': '手机号登录',
     'hintText': '请输入手机号码',
-    'key': 'phone',
+    'value': 'phone',
   },
   {
     'icon': FontAwesomeIcons.github,
     'text': 'GitHub 登录',
     'hintText': '请输入 GitHub 用户名',
-    'key': 'github',
+    'value': 'github',
   },
   {
     'icon': FontAwesomeIcons.weixin,
     'text': '微信登录',
     'hintText': '请输入微信号',
-    'key': 'wechat',
+    'value': 'wechat',
   },
   {
     'icon': FontAwesomeIcons.envelope,
     'text': '邮箱登录',
     'hintText': '请输入邮箱账号',
-    'key': 'email',
+    'value': 'email',
   },
 ];

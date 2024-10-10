@@ -6,7 +6,7 @@ import '../index.dart';
 
 class ButtonGroup extends StatefulWidget {
   final List<Map<String, dynamic>> loginOptions;
-  final Function(String?)? onChange;
+  final Function(Map<String, dynamic>, int?)? onChange;
   final double? width;
   final double? borderWidth;
   final double? buttonWidth;
@@ -53,7 +53,9 @@ class _ButtonGroupState extends State<ButtonGroup> {
       width: widget.width ?? DeviceUtils.getScreenSize(context).width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: widget.loginOptions.map((item) {
+        children: widget.loginOptions.asMap().entries.map((entry) {
+          int index = entry.key;
+          final item = entry.value;
           final isSelected = selectedKey == item['key'];
           final borderColor = isSelected
               ? widget.selectedColor ?? Theme.of(context).primaryColor
@@ -71,7 +73,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
                   selectedKey = item['key'];
                 });
                 if (widget.onChange != null) {
-                  widget.onChange!(item['key']);
+                  widget.onChange!(item, index);
                 }
               },
               isBorder: true,
