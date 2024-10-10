@@ -17,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _iponeController = TextEditingController();
   late Map<String, dynamic> _selectedData = loginIconAndText[0];
+  bool isAgreed = false;
 
   void _submit() {
     print('object');
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: DeviceUtils.getScreenSize(context).height * 0.04,
                   ),
                   InputField(
-                    leftWidget: FaIcon(
+                    leftWidget: Icon(
                       FontAwesomeIcons.phone,
                       size: 20,
                       color: Theme.of(context).primaryColor,
@@ -76,13 +77,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: _selectedData['hintText'] ?? '',
                     textEditingController: _iponeController,
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(
+                      height: DeviceUtils.getScreenSize(context).height * 0.03),
                   InputField(
-                    leftWidget: const Icon(Icons.phone),
-                    hintText: '请输入手机号码',
+                    hintText: '请输入验证码',
                     textEditingController: _iponeController,
+                    type: InputType.verificationCode,
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(
+                      height: DeviceUtils.getScreenSize(context).height * 0.08),
                   Button(
                     icon: const Icon(Icons.arrow_forward, color: Colors.white),
                     onPressed: _submit,
@@ -90,11 +93,35 @@ class _LoginScreenState extends State<LoginScreen> {
                     isBoxShadow: true,
                     width: 60,
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(
+                      height: DeviceUtils.getScreenSize(context).height * 0.08),
                   ButtonGroup(
                     loginOptions: loginIconAndText,
                     onChange: (item, index) =>
                         _onButtonGroupChange(item, index),
+                  ),
+                  Row(
+                    children: [
+                      Radio<bool>(
+                        value: true,
+                        groupValue: isAgreed,
+                        onChanged: (value) {
+                          setState(() {
+                            isAgreed = value!;
+                          });
+                        },
+                      ),
+                      TextButton(
+                        onPressed: isAgreed
+                            ? null
+                            : () {
+                                setState(() {
+                                  isAgreed = true;
+                                });
+                              },
+                        child: const Text('同意《荔枝用户协议》《隐私政策》'),
+                      ),
+                    ],
                   ),
                 ],
               ),

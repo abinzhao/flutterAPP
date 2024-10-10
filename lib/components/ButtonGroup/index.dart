@@ -48,6 +48,14 @@ class _ButtonGroupState extends State<ButtonGroup> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      selectedKey = widget.loginOptions[0]['value'];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width ?? DeviceUtils.getScreenSize(context).width,
@@ -56,7 +64,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
         children: widget.loginOptions.asMap().entries.map((entry) {
           int index = entry.key;
           final item = entry.value;
-          final isSelected = selectedKey == item['key'];
+          final isSelected = selectedKey == item['value'];
           final borderColor = isSelected
               ? widget.selectedColor ?? Theme.of(context).primaryColor
               : widget.unSelectedColor;
@@ -70,7 +78,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
               ),
               onPressed: () {
                 setState(() {
-                  selectedKey = item['key'];
+                  selectedKey = item['value'];
                 });
                 if (widget.onChange != null) {
                   widget.onChange!(item, index);
@@ -81,7 +89,7 @@ class _ButtonGroupState extends State<ButtonGroup> {
                 color: borderColor!,
                 width: widget.borderWidth!,
               ),
-              borderRadius: 12,
+              // borderRadius: 12,
               type: ButtonType.circular,
               width: widget.buttonWidth,
               height: widget.buttonHeight,
