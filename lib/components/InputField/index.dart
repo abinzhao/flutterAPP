@@ -15,6 +15,7 @@ class InputField extends StatefulWidget {
   final Color? backgroundColor;
   final int? countdownSeconds;
   final VoidCallback? onSendVerificationCode;
+  final double? width;
 
   const InputField({
     super.key,
@@ -28,6 +29,7 @@ class InputField extends StatefulWidget {
     this.backgroundColor = Colors.white,
     this.countdownSeconds = 60,
     this.onSendVerificationCode,
+    this.width,
   });
 
   @override
@@ -46,7 +48,7 @@ class _InputFieldState extends State<InputField> {
     double inputWidth = screenWidth * 0.8;
 
     return SizedBox(
-      width: inputWidth,
+      width: widget.width ?? inputWidth,
       child: Container(
         decoration: BoxDecoration(
           color: widget.backgroundColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../login/login_utils.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -35,6 +36,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
               child: const Text(
                 '跳转到未知页面',
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                LoginStorage.logout();
+                context.go('/login');
+              },
+              child: const Text(
+                '退出登录',
                 style: TextStyle(fontSize: 14),
               ),
             ),

@@ -7,6 +7,7 @@ import '../views/homeLayout/index.dart';
 import '../views/home/index.dart';
 import '../views/profile/index.dart';
 import 'page_path.dart';
+import '../views/login/login_utils.dart';
 
 /// 路由配置
 final GoRouter router = GoRouter(
@@ -14,7 +15,15 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: PagePath.layout,
       builder: (BuildContext context, GoRouterState state) {
-        return const MainLayout();
+        return FutureBuilder(
+            future: LoginStorage.getLoginInfo(),
+            builder: (context, snapshot) {
+              if (snapshot.data?.isLogin == true) {
+                return const MainLayout();
+              } else {
+                return const LoginScreen();
+              }
+            });
       },
       routes: <RouteBase>[
         GoRoute(

@@ -1,11 +1,14 @@
+import 'dart:math';
+
 import 'package:code_app/utils/device.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../components/index.dart';
 import 'constants.dart';
+import 'service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,9 +22,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _codeController = TextEditingController();
   late Map<String, dynamic> _selectedData = loginIconAndText[0];
   bool isAgreed = false;
+  String? code = '';
+  bool submitBtnDisabled = true;
 
-  void _submit() {
-    print('提交登录信息，账号：${_accountController.text}，验证码：${_codeController.text}');
+  void _submit(BuildContext context) async {
+    if (code == null || code!.isEmpty || _codeController.text != code) {
+      toastification.show(
+        context: context,
+        title: const Text('验证码错误,请检查！'),
+        style: ToastificationStyle.flatColored,
+        showIcon: true,
+        type: ToastificationType.error,
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+      return;
+    }
+    final res = await sendPostRequest({
+      'type': _selectedData['value'],
+      'content': _accountController.text,
+      'isLogin': true,
+      'selectedData': _selectedData,
+    });
+    print("登录信息 ${res}");
+    if (res != null && mounted) {
+      context.go('/');
+    }
   }
 
   void _onButtonGroupChange(Map<String, dynamic> item, int? index) {
@@ -30,10 +55,41 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Widget buildLoginContent(BuildContext context, double height, double width) {
+  // 生成一个 6 位数的验证码
+  int generateRandomSixDigitNumber() {
+    Random random = Random();
+    int min = 000000;
+    int max = 999999;
+    return min + random.nextInt(max - min + 1);
+  }
+
+  void _onSendVerificationCode() {
+    print('发送验证码');
+    final _code = generateRandomSixDigitNumber();
+    setState(() {
+      code = _code.toString();
+    });
+    toastification.show(
+      context: context,
+      title: const Text('登录验证码'),
+      description: Text('验证码已生成，你的验证码为$_code'),
+      style: ToastificationStyle.flatColored,
+      showIcon: true,
+      type: ToastificationType.success,
+      autoCloseDuration: const Duration(seconds: 10),
+    );
+  }
+
+  Widget buildLoginContent(BuildContext context, double height, double? width) {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Image.asset(
+            "./images/logo.png",
+            width: 110,
+            height: 110,
+            fit: BoxFit.cover,
+          ),
           Text(
             _selectedData['text'] ?? '',
             style: const TextStyle(
@@ -46,12 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           InputField(
             leftWidget: Icon(
-              FontAwesomeIcons.phone,
+              _selectedData['icon'],
               size: 20,
               color: Theme.of(context).primaryColor,
             ),
             hintText: _selectedData['hintText'] ?? '',
             textEditingController: _accountController,
+            width: width,
           ),
           SizedBox(
             height: height * 0.03,
@@ -60,27 +117,30 @@ class _LoginScreenState extends State<LoginScreen> {
             hintText: '请输入验证码',
             textEditingController: _codeController,
             type: InputType.verificationCode,
+            onSendVerificationCode: _onSendVerificationCode,
+            width: width,
           ),
           SizedBox(
-            height: height * 0.08,
+            height: height * 0.05,
           ),
           Button(
             icon: const Icon(Icons.arrow_forward, color: Colors.white),
-            onPressed: _submit,
+            onPressed: () => _submit(context),
             type: ButtonType.circular,
             disabled: !isAgreed,
             isBoxShadow: true,
             width: 60,
           ),
           SizedBox(
-            height: height * 0.08,
+            height: height * 0.05,
           ),
           ButtonGroup(
             loginOptions: loginIconAndText,
+            unSelectedColor: Colors.black87,
             onChange: (item, index) => _onButtonGroupChange(item, index),
           ),
           SizedBox(
-            height: height * 0.04,
+            height: height * 0.02,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                 buttonText: '同意《开发者用户协议》《隐私政策》',
                 textStyle: const TextStyle(fontSize: 12),
-                padding: const EdgeInsets.all(0),
+                padding: EdgeInsets.zero,
               ),
             ],
           ),
@@ -135,42 +195,42 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      backgroundDecoration: const BoxDecoration(
+      backgroundDecoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('./images/login-bg.png'),
+          image: AssetImage(
+              './images/${largeScreen ? 'login-pc-bg' : 'login-bg'}.png'),
           fit: BoxFit.cover,
         ),
       ),
       child: Center(
         child: largeScreen
-            ? Row(
-                children: [
-                  // 左侧内容待定部分
-                  Container(
-                    width: width * 0.3,
-                    color: Colors.grey[200],
-                  ),
-                  SizedBox(width: width * 0.01),
-                  Card(
-                    elevation: 4,
-                    child: Container(
-                      width: width * 0.5,
-                      child: Column(
-                        children: [
-                          SizedBox(height: height * 0.18),
-                          buildLoginContent(context, height, width),
-                        ],
-                      ),
+            ? Container(
+                width: width * 0.4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      spreadRadius: 0.1,
+                      blurRadius: 15,
+                      offset: const Offset(0, 1),
                     ),
+                  ],
+                ),
+                child: Card(
+                  color: Colors.white.withOpacity(0.7),
+                  child: Padding(
+                    padding: EdgeInsets.all(height * 0.05),
+                    child: buildLoginContent(context, height, width * 0.4),
                   ),
-                ],
+                ),
               )
             : Container(
                 width: width * 0.75,
                 child: Column(
                   children: [
                     SizedBox(height: height * 0.18),
-                    buildLoginContent(context, height, width),
+                    buildLoginContent(context, height, width * 0.8),
                   ],
                 ),
               ),

@@ -163,7 +163,12 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     double? width =
         widget.width ?? (widget.type == ButtonType.circular ? 48 : null);
     double? height =
-        widget.height ?? (widget.type == ButtonType.circular ? width : 48);
+        widget.height ??
+        (widget.type == ButtonType.circular
+            ? width
+            : widget.type == ButtonType.text
+                ? null
+                : 48);
     final bool isDisabled = widget.disabled!;
     final Color disabledColor = isDisabled ? Colors.grey : mainColor;
     final List<BoxShadow>? boxShadow = widget.isBoxShadow!
@@ -219,32 +224,84 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
         break;
     }
 
-    return InkWell(
-      onTap: isDisabled ? null : _handlePressed,
-      borderRadius: BorderRadius.circular(widget.borderRadius ?? 8),
-      child: AnimatedBuilder(
-        animation: _animationController,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: Container(
-              width: width,
-              height: height,
-              decoration: decoration,
-              padding: widget.padding ??
-                  (widget.type == ButtonType.circular
-                      ? EdgeInsets.zero
-                      : const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12)),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [buttonContent],
-              ),
-            ),
-          );
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: isDisabled ? null : _handlePressed,
+        onTapDown: (_) {
+          setState(() {
+            // 按下时的装饰，与原始装饰一致但颜色变浅
+            decoration = BoxDecoration(
+              color: widget.backgroundColor != null
+                  ? Colors.grey.withOpacity(0.2)
+                  : theme.primaryColor.withOpacity(0.2),
+              shape: widget.borderRadius != null
+                  ? BoxShape.rectangle
+                  : BoxShape.circle,
+              borderRadius: widget.borderRadius != null
+                  ? BorderRadius.circular(widget.borderRadius!)
+                  : null,
+              border: border,
+              boxShadow: boxShadow,
+            );
+          });
         },
+        onTapCancel: () {
+          setState(() {
+            // 恢复原始装饰
+            decoration = BoxDecoration(
+              color: disabledColor,
+              shape: widget.borderRadius != null
+                  ? BoxShape.rectangle
+                  : BoxShape.circle,
+              borderRadius: widget.borderRadius != null
+                  ? BorderRadius.circular(widget.borderRadius!)
+                  : null,
+              border: border,
+              boxShadow: boxShadow,
+            );
+          });
+        },
+        onTapUp: (_) {
+          setState(() {
+            // 恢复原始装饰
+            decoration = BoxDecoration(
+              color: disabledColor,
+              shape: widget.borderRadius != null
+                  ? BoxShape.rectangle
+                  : BoxShape.circle,
+              borderRadius: widget.borderRadius != null
+                  ? BorderRadius.circular(widget.borderRadius!)
+                  : null,
+              border: border,
+              boxShadow: boxShadow,
+            );
+          });
+        },
+        child: AnimatedBuilder(
+          animation: _animationController,
+          builder: (BuildContext context, Widget? child) {
+            return Transform.scale(
+              scale: _scaleAnimation.value,
+              child: Container(
+                width: width,
+                height: height,
+                decoration: decoration,
+                padding: widget.padding ??
+                    (widget.type == ButtonType.circular
+                        ? EdgeInsets.zero
+                        : const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [buttonContent],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

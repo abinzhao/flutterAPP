@@ -22,8 +22,7 @@ class AppTheme {
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
-        side: const BorderSide(
-            color: Color.fromARGB(255, 0, 128, 255), width: 2), // 卡片边框为蓝色
+        side: BorderSide.none,
       ),
       color: const Color.fromARGB(255, 250, 250, 250),
     ),
@@ -82,8 +81,7 @@ class AppTheme {
       elevation: 6.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
-        side: const BorderSide(
-            color: Color.fromARGB(255, 128, 0, 255), width: 2), // 卡片边框为深紫色
+        side: BorderSide.none,
       ),
       color: const Color.fromARGB(255, 50, 50, 50),
     ),
