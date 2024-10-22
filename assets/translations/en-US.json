@@ -3,6 +3,7 @@
     "tools": "Tools",
     "profile": "Pro File",
     "404Text": "The page you visited is missing, please try again later!",
+    "page404Title": "Page Error",
     "footerText1": "The software is produced by @纯爱掌门人",
     "footerText2": "Copyright © 2024. [Software name is ‘Development Box’]. Registration number: [Registration number is temporarily ‘XXXXX-XXXXX’].",
     "phoneLogin": "Phone Number Login",
@@ -18,5 +19,6 @@
     "loginCodeTitle": "Verification Code Login",
     "loginCodeText": "The verification code has been generated. Your verification code is:",
     "agreePolicy": "Agree to the Developer Agreement and Privacy Policy",
-    "codeError": "The verification code is wrong, please check!"
+    "codeError": "The verification code is wrong, please check!",
+    "myself": "Myself"
 }

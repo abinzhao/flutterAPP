@@ -3,6 +3,7 @@
     "tools": "工具",
     "profile": "个人中心",
     "404Text": "您访问的页面丢了，请稍后重试!",
+    "page404Title": "页面错误",
     "footerText1": "软件由 @纯爱掌门人 制作出品",
     "footerText2": "版权所有 © 2024。[软件名称为‘开发盒子’]。备案号：[备案号暂为‘XXXXX-XXXXX’]。",
     "phoneLogin": "手机号登录",
@@ -18,5 +19,6 @@
     "loginCodeTitle": "验证码登录",
     "loginCodeText": "验证码已生成，你的验证码为:",
     "agreePolicy": "同意《开发者协议》和《隐私政策》",
-    "codeError": "验证码错误,请检查！"
+    "codeError": "验证码错误,请检查！",
+    "myself": "我的"
 }

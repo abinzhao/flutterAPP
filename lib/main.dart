@@ -7,12 +7,19 @@ import 'modules/change_notifier.dart';
 import './router/index.dart';
 import 'themes/theme.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  runApp(
-    MultiProvider(
+  return runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Counter()),
       ],
@@ -20,14 +27,14 @@ void main() async {
         supportedLocales: const [Locale('zh', 'CN'), Locale('en', 'US')],
         fallbackLocale: const Locale('zh', 'CN'),
         path: 'translations',
-        child: const MainApp(),
-    ),
-    ),
-  );
+        child: const MainAppContent(),
+      ),
+    );
+  }
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MainAppContent extends StatelessWidget {
+  const MainAppContent({super.key});
 
   @override
   Widget build(BuildContext context) {

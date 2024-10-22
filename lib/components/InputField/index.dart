@@ -53,7 +53,7 @@ class _InputFieldState extends State<InputField> {
       child: Container(
         decoration: BoxDecoration(
           color: widget.backgroundColor,
-          borderRadius: widget.borderRadius ?? BorderRadius.circular(24),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
@@ -63,7 +63,7 @@ class _InputFieldState extends State<InputField> {
           ],
         ),
         child: ClipRRect(
-          borderRadius: widget.borderRadius ?? BorderRadius.circular(24),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
           child: widget.type == InputType.verificationCode
               ? TextField(
                   controller: widget.textEditingController,

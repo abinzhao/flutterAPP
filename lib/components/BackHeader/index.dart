@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../../utils/locale.dart';
 import '../../themes/utils.dart';
@@ -10,6 +11,7 @@ class BackHeader extends StatelessWidget implements PreferredSizeWidget {
   final String? pageTitle;
   final TextStyle? pageTitleStyle;
   final bool? isBackButton;
+  final double? height;
 
   const BackHeader({
     super.key,
@@ -18,16 +20,17 @@ class BackHeader extends StatelessWidget implements PreferredSizeWidget {
     this.pageTitle,
     this.pageTitleStyle,
     this.isBackButton = true,
+    this.height,
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(72.0);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: preferredSize.height,
+      height: height ?? preferredSize.height,
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -41,7 +44,7 @@ class BackHeader extends StatelessWidget implements PreferredSizeWidget {
                 ? IconButton(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     iconSize: 20.0,
-                    icon: const Icon(Icons.arrow_back),
+                    icon: const FaIcon(FontAwesomeIcons.arrowLeft),
                     onPressed: () => context.pop(),
                   )
                 : const SizedBox.shrink(),

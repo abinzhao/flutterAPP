@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? code = '';
   bool submitBtnDisabled = true;
 
-  void _submit(BuildContext context) async {
+  Future<bool> _submit(BuildContext context) async {
     if (code == null || code!.isEmpty || _codeController.text != code) {
       toastification.show(
         context: context,
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
         type: ToastificationType.error,
         autoCloseDuration: const Duration(seconds: 3),
       );
-      return;
+      return false;
     }
     final res = await sendPostRequest({
       'type': _selectedData['value'],
@@ -42,9 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
       'isLogin': true,
       'selectedData': _selectedData,
     });
-    if (res != null && mounted) {
-      context.go('/');
+    if (res != null) {
+      return true;
     }
+    return false;
   }
 
   void _onButtonGroupChange(Map<String, dynamic> item, int? index) {
@@ -62,14 +63,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onSendVerificationCode() {
-    final _code = generateRandomSixDigitNumber();
+    var codeNum = generateRandomSixDigitNumber();
     setState(() {
-      code = _code.toString();
+      code = codeNum.toString();
     });
     toastification.show(
       context: context,
       title: Text(context.tr("loginCodeTitle")),
-      description: Text('${context.tr("loginCodeText")}$_code'),
+      description: Text('${context.tr("loginCodeText")}$codeNum'),
       style: ToastificationStyle.flatColored,
       showIcon: true,
       type: ToastificationType.success,
@@ -122,7 +123,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Button(
             icon: const Icon(Icons.arrow_forward, color: Colors.white),
-            onPressed: () => _submit(context),
+            onPressed: () {
+              _submit(context).then((res) {
+                if (res) {
+                  // ignore: use_build_context_synchronously
+                  context.go('/');
+                }
+              });
+            },
             type: ButtonType.circular,
             disabled: !isAgreed,
             isBoxShadow: true,
@@ -210,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               )
-            : Container(
+            : SizedBox(
                 width: width * 0.75,
                 child: Column(
                   children: [
