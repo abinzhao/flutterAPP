@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 enum InputType { text, password, verificationCode }
@@ -85,7 +86,9 @@ class _InputFieldState extends State<InputField> {
                             }
                           : null,
                       child: Text(
-                        _countdown <= 0 ? '发送验证码' : '$_countdown 秒后',
+                        _countdown <= 0
+                            ? context.tr('sendCode')
+                            : '$_countdown s',
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ),

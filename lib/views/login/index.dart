@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:code_app/utils/device.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (code == null || code!.isEmpty || _codeController.text != code) {
       toastification.show(
         context: context,
-        title: const Text('验证码错误,请检查！'),
+        title: Text(context.tr('codeError')),
         style: ToastificationStyle.flatColored,
         showIcon: true,
         type: ToastificationType.error,
@@ -43,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
       'isLogin': true,
       'selectedData': _selectedData,
     });
-    print("登录信息 ${res}");
     if (res != null && mounted) {
       context.go('/');
     }
@@ -64,15 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onSendVerificationCode() {
-    print('发送验证码');
     final _code = generateRandomSixDigitNumber();
     setState(() {
       code = _code.toString();
     });
     toastification.show(
       context: context,
-      title: const Text('登录验证码'),
-      description: Text('验证码已生成，你的验证码为$_code'),
+      title: Text(context.tr("loginCodeTitle")),
+      description: Text('${context.tr("loginCodeText")}$_code'),
       style: ToastificationStyle.flatColored,
       showIcon: true,
       type: ToastificationType.success,
@@ -114,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: height * 0.03,
           ),
           InputField(
-            hintText: '请输入验证码',
+            hintText: context.tr("sendCodeText"),
             textEditingController: _codeController,
             type: InputType.verificationCode,
             onSendVerificationCode: _onSendVerificationCode,
@@ -165,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           isAgreed = true;
                         });
                       },
-                buttonText: '同意《开发者用户协议》《隐私政策》',
+                buttonText: context.tr("agreePolicy"),
                 textStyle: const TextStyle(fontSize: 12),
                 padding: EdgeInsets.zero,
               ),
@@ -183,18 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final width = DeviceUtils.getScreenSize(context).width;
 
     return PageLayout(
-      appBar: BackHeader(
-        rightChild: TextButton(
-          onPressed: () {},
-          child: const Text(
-            '账号登录',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
       backgroundDecoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
