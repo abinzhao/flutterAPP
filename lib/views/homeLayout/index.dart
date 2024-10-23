@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../components/index.dart';
 import '../../modules/change_notifier.dart';
-import '../profile/index.dart';
-import '../home/index.dart';
-import '../tools/index.dart';
+import 'profile/index.dart';
+import 'home/index.dart';
+import 'tools/index.dart';
 import '../../utils//device.dart';
 
 final List<Widget> _pages = [
@@ -16,8 +16,8 @@ final List<Widget> _pages = [
 ];
 
 /// 主布局组件
-class MainLayout extends StatelessWidget {
-  const MainLayout({super.key});
+class MainHomeScreen extends StatelessWidget {
+  const MainHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

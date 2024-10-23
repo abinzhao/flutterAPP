@@ -7,3 +7,5 @@ export 'InputField/index.dart';
 export 'Button/index.dart';
 export 'ButtonGroup/index.dart';
 export 'PageLayout/index.dart';
+export 'ImagePreview/index.dart';
+export 'Tag/index.dart';

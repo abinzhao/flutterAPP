@@ -3,8 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import '../../components/index.dart';
-import '../login/login_utils.dart';
+import '../../../components/index.dart';
+import '../../login/login_utils.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -53,23 +53,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ClipOval(
-                      child: Image.network(
-                        "https://wx2.sinaimg.cn/mw690/d315af46ly1hnn5btbjr5j20j60j7mzv.jpg",
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Text('图片加载错误');
-                        },
-                      ),
+                    ImagePreview(
+                      imageUrl:
+                          'https://pic1.zhimg.com/80/v2-3a6e134166a08b6e4600ebf02dd50298_1440w.webp',
+                      width: 80,
+                      height: 80,
+                      boxShape: BoxShape.circle,
                     ),
-                    const SizedBox(width: 12),
-                    const Column(
+                    SizedBox(width: 12),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -87,12 +83,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.w300,
                           ),
                         ),
-                        Text('此处为标签🏷️'),
+                        // Text('此处为标签🏷️'),
+                        Tag(
+                          content: '一级会员',
+                          colorType: TagColorType.success,
+                          hasBorder: true,
+                        )
                       ],
                     )
                   ],
                 ),
-                const SizedBox(width: 6)
+                TextButton(onPressed: () => {}, child: const Text('更多操作'))
               ],
             )
           ],
