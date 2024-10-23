@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../../../components/index.dart';
-import '../../login/login_utils.dart';
+import '../../../storage/user.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,6 +14,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  UserInfo? userInfo = UserInfo();
+
+  void _updateUserInfo() async {
+    final data = await UserStorage.getUserInfo();
+    setState(() {
+      userInfo = data;
+    });
+  }
+
+  @override
+  void initState() {
+    _updateUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            // 头部
             BackHeader(
               leftChild: Text(
                 context.tr("myself"),
@@ -36,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   IconButton(
                     icon: const FaIcon(FontAwesomeIcons.rightFromBracket),
                     onPressed: () {
-                      LoginStorage.logout();
+                      UserStorage.logout();
                       context.go('/login');
                     },
                   ),
@@ -49,23 +65,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 20),
+            // 账号信息
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ImagePreview(
-                      imageUrl:
-                          'https://pic1.zhimg.com/80/v2-3a6e134166a08b6e4600ebf02dd50298_1440w.webp',
+                      imageUrl: userInfo?.avatarUrl ?? '',
                       width: 80,
                       height: 80,
                       boxShape: BoxShape.circle,
                     ),
-                    SizedBox(width: 12),
-                    Column(
+                    const SizedBox(width: 12),
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -83,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.w300,
                           ),
                         ),
-                        // Text('此处为标签🏷️'),
+                        SizedBox(height: 4),
                         Tag(
                           content: '一级会员',
                           colorType: TagColorType.success,
@@ -95,7 +111,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 TextButton(onPressed: () => {}, child: const Text('更多操作'))
               ],
-            )
+            ),
+            const SizedBox(height: 24),
+            const ListCard(
+              listItems: [
+                {
+                  'child': Text('我的订单'),
+                  'actionIcon': FontAwesomeIcons.arrowLeft
+                },
+                {
+                  'child': Text('我的收藏'),
+                  'actionIcon': FontAwesomeIcons.arrowLeft
+                },
+                {
+                  'child': Text('我的优惠券'),
+                  'actionIcon': FontAwesomeIcons.arrowLeft
+                },
+              ],
+            ),
           ],
         ),
       ),

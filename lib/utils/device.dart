@@ -2,6 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class DeviceUtils {
+  // 屏幕宽度
+  static double screenWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width * 0.95;
+  }
   // 检测是否为大屏设备
   static bool isLargeScreen(BuildContext context) {
     return MediaQuery.of(context).size.width > 600;

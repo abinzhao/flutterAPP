@@ -1,5 +1,5 @@
 // import 'package:dio/dio.dart';
-import 'login_utils.dart';
+import '../../storage/user.dart';
 
 Future<dynamic> sendPostRequest(dynamic data) async {
   try {
@@ -8,14 +8,12 @@ Future<dynamic> sendPostRequest(dynamic data) async {
     //   'https://api.example.com/submit',
     //   data: data ?? {},
     // );
-    await LoginStorage.saveLoginInfo(
-      LoginInfo(
-        type: data["selectedData"]['value'],
-        content: data["content"],
-        isLogin: true,
-      ),
-    );
-    return '登录成功';
+    await UserStorage.updateUserInfoField(
+        'loginType', data["selectedData"]['value']);
+    await UserStorage.updateUserInfoField('account', data["account"]);
+    await UserStorage.updateUserInfoField('isLogin', true);
+    final userInfo = await UserStorage.getUserInfo();
+    return userInfo;
   } catch (e) {
     print('Error: $e');
     return null;

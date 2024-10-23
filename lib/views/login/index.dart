@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     final res = await sendPostRequest({
       'type': _selectedData['value'],
-      'content': _accountController.text,
+      'account': _accountController.text,
       'isLogin': true,
       'selectedData': _selectedData,
     });
@@ -123,13 +123,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Button(
             icon: const Icon(Icons.arrow_forward, color: Colors.white),
-            onPressed: () {
-              _submit(context).then((res) {
-                if (res) {
-                  // ignore: use_build_context_synchronously
+            onPressed: () => {
+              _submit(context).then((value) {
+                if (value) {
                   context.go('/');
                 }
-              });
+              })
             },
             type: ButtonType.circular,
             disabled: !isAgreed,

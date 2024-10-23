@@ -24,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar>
   final GlobalKey _bottomNavigationKey = GlobalKey();
 
   /// 底部导航栏高度
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize => const Size.fromHeight(72.0);
 
   @override
   void initState() {
@@ -47,17 +47,26 @@ class _BottomNavBarState extends State<BottomNavBar>
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-      child: Container(
-        height: preferredSize.height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+    return Container(
+      height: preferredSize.height,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: BottomNavigationBar(
+        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: Offset(0, 1),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: BottomNavigationBar(
           key: _bottomNavigationKey,
           backgroundColor: Colors.transparent,
           currentIndex: widget.selectedIndex,
@@ -92,7 +101,6 @@ class _BottomNavBarState extends State<BottomNavBar>
           showUnselectedLabels: false,
           elevation: 0,
           iconSize: 24,
-          ),
         ),
       ),
     );

@@ -4,19 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../views/homeLayout/index.dart';
-import '../views/homeLayout/home/index.dart';
-import '../views/homeLayout/profile/index.dart';
-import 'page_path.dart';
-import '../views/login/login_utils.dart';
+import '../storage/user.dart';
 
 /// 路由配置
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
-      path: PagePath.layout,
+      path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return FutureBuilder(
-            future: LoginStorage.getLoginInfo(),
+            future: UserStorage.getUserInfo(),
             builder: (context, snapshot) {
               if (snapshot.data?.isLogin == true) {
                 return const MainHomeScreen();
@@ -27,7 +24,7 @@ final GoRouter router = GoRouter(
       },
       routes: <RouteBase>[
         // GoRoute(
-        //   path: PagePath.home,
+        //   path: '/home',
         //   builder: (BuildContext context, GoRouterState state) {
         //     return const HomeScreen();
         //   },
@@ -38,12 +35,12 @@ final GoRouter router = GoRouter(
         //     return const ProfileScreen();
         //   },
         // ),
-        // GoRoute(
-        //   path: PagePath.login,
-        //   builder: (BuildContext context, GoRouterState state) {
-        //     return const LoginScreen();
-        //   },
-        // ),
+        GoRoute(
+          path: 'login',
+          builder: (BuildContext context, GoRouterState state) {
+            return const LoginScreen();
+          },
+        ),
 
         /// 错误页面
         GoRoute(

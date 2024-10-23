@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final lightTheme = ThemeData(
     primaryColor: const Color.fromARGB(255, 0, 128, 255), // 亮蓝色，具有科技感
-    scaffoldBackgroundColor: const Color.fromARGB(255, 235, 235, 235),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 245, 245, 245),
     textTheme: const TextTheme(
       headlineMedium: TextStyle(
         fontSize: 28,
@@ -37,7 +37,7 @@ class AppTheme {
     ),
     iconButtonTheme: IconButtonThemeData(
       style: ButtonStyle(
-        iconSize: WidgetStateProperty.all(24.0),
+        iconSize: WidgetStateProperty.all(16.0),
         backgroundColor: WidgetStateProperty.all(Colors.transparent),
         overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
           if (states.contains(WidgetState.pressed)) {
@@ -80,7 +80,7 @@ class AppTheme {
     cardTheme: CardTheme(
       elevation: 6.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(16),
         side: BorderSide.none,
       ),
       color: const Color.fromARGB(255, 50, 50, 50),
